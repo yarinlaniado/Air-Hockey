@@ -10,6 +10,7 @@ public class BotActions extends Thread {
 	int Score;
 	int choose;
 	int[] levels = { 3, 10, 20 };
+	private int count;
 
 	public BotActions(Player player2, Puck gamePuck, MainPanel mainPanel) {
 		Bot = player2;
@@ -24,7 +25,7 @@ public class BotActions extends Thread {
 	public void run() { // checks array of points and hits the closest one
 		int level = levels[choose];
 		while (true) {
-			Point hit = bestattack(Bot,GamePuck.Parray);
+			Point hit = bestattack(Bot, GamePuck.Parray);
 			if (GamePuck.PuckYpos < 290 && Bot.flagcheck) {
 				if (GamePuck.PrevPuckYpos > Bot.PlayerYpos) // ATTACK
 				{
@@ -60,16 +61,12 @@ public class BotActions extends Thread {
 
 			}
 			m.repaint();
-			try {
-				sleep(level);
-			} catch (InterruptedException e) {
-			}
 
 		}
 	}
 
-	private Point bestattack(Player p,Point[] Parray) {
-		
+	private Point bestattack(Player p, Point[] Parray) {
+
 		Double Distance, MinDistance;
 		int c = 0;
 		// TODO Auto-generated method stub
@@ -80,10 +77,9 @@ public class BotActions extends Thread {
 				c = i;
 				MinDistance = Distance;
 			}
-	}
+		}
 		return Parray[c];
 	}
-	
 
 	public void menu() {
 

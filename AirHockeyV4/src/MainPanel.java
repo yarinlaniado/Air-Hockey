@@ -35,7 +35,7 @@ public class MainPanel extends JPanel implements ActionListener {
 	Image backGroundImage;
 	Image Icon;
 	MML MouseListen = new MML();
-	int movement = 4;
+	int movement = 10;
 	Timer t;
 	Timer t2;
 	public boolean Leftkey;
@@ -293,6 +293,8 @@ public class MainPanel extends JPanel implements ActionListener {
 			if (key == KeyEvent.VK_L) {
 
 			Player1.print();
+			Player2.print();
+
 
 			}
 

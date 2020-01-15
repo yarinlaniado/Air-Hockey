@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-//TODO FIND PLAYER SPEED USE PUCK IMPELMENTAION
 
 public class Player extends Thread {
 	int PlayerXpos;
@@ -17,7 +16,6 @@ public class Player extends Thread {
 	int size;
 	int PlayerXdir;
 	int PlayerYdir;
-	int bot=4;
 	int midPlayerXpos;
 	int midPlayerYpos;
 	int Score;
@@ -25,14 +23,16 @@ public class Player extends Thread {
 	double PlayerSpeed;
 	double radios = 35;
 	boolean isPaused = false;
-	boolean flagcheck=true;
+	boolean flagcheck = true;
 	Image PlayerImage;
 	MainPanel m;
 	Puck GamePuck;
+	private int count;
 
 	public Player(MainPanel MP, int num, Puck GP) {
 		PlayerXpos = 160;
 		PlayerYpos = 500;
+		count = 0;
 		// midPlayerXpos = (PlayerXpos + width) / 2;
 		// midPlayerYpos = (PlayerYpos + height) / 2;
 		m = MP;
@@ -47,10 +47,9 @@ public class Player extends Thread {
 			Score = 0;
 		}
 		GamePuck = GP;
-		synchronized(this) {
-		start();
+		synchronized (this) {
+			start();
 		}
-		
 
 	}
 
@@ -69,38 +68,40 @@ public class Player extends Thread {
 
 				midPlayerXpos = PlayerXpos + (width / 2);
 				midPlayerYpos = PlayerYpos + (height / 2);
-				
-				if(flagcheck)
-				{
-				if (DistanceBetweenPuckAndPlayer() <= radios + GamePuck.radios) {
-					flagcheck=false;
-					GamePuck.Collision(this);
-					try {
-						Thread.sleep(250);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+
+				if (flagcheck) {
+					if (DistanceBetweenPuckAndPlayer() <= radios + GamePuck.radios) {
+						flagcheck = false;
+						GamePuck.Collision(this);
+					/*	try {
+							Thread.sleep(250);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}*/
 					}
+
 				}
 
+				if (DistanceBetweenPuckAndPlayer() > radios + GamePuck.radios) {
+					flagcheck = true;
 				}
-				
-					if (DistanceBetweenPuckAndPlayer() > radios + GamePuck.radios) {
-						flagcheck=true;
-					}
-					}
+			}
 
-
-				Goal(Pnum); // win check
-				m.repaint();
+			Goal(Pnum); // win check
+			count++;
+			
 				try {
 					Thread.sleep(1);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			}
+			
+			
+				m.repaint();
+
 		}
-	
+	}
 
 	public void drawPlayer(Graphics g) {
 		g.drawImage(PlayerImage, PlayerXpos, PlayerYpos, size, size, null);

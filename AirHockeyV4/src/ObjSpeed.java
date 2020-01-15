@@ -29,7 +29,7 @@ public class ObjSpeed extends Thread {
 
 			Player2.prevPlayerXpos = Player2.PlayerXpos;
 			Player2.prevPlayerYpos = Player2.PlayerYpos;
-			
+
 			Goal(Player1);
 			Goal(Player2);
 
@@ -42,7 +42,7 @@ public class ObjSpeed extends Thread {
 
 		}
 	}
-	
+
 	public void Goal(Player one) {
 
 		if (GamePuck.PuckXpos > 80 && GamePuck.PuckXpos < 250)
@@ -58,6 +58,5 @@ public class ObjSpeed extends Thread {
 				}
 			}
 	}
-	
 
 }

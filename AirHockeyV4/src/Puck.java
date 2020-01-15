@@ -40,8 +40,8 @@ public class Puck extends Thread {
 		m = MP;
 		ImageIcon ii = new ImageIcon("puck.png");
 		PuckImage = ii.getImage();
-		synchronized(this) {
-		start();
+		synchronized (this) {
+			start();
 		}
 
 	}
@@ -63,8 +63,8 @@ public class Puck extends Thread {
 			}
 			if (PuckXpos < 0 || PuckXpos > 345) {// left and right
 				PuckXdir = PuckXdir * -1;
-				
-							}
+
+			}
 
 			if (PuckXdir == 0)
 				PuckXdir = -5 + (int) (Math.random() * 5);
@@ -201,15 +201,9 @@ public class Puck extends Thread {
 			PuckYdir -= 2;
 			PuckXdir -= 2;
 		}
-			if (speed < p.PlayerSpeed)
+		if (speed < p.PlayerSpeed)
 			PuckYdir += 4;
-			PuckXdir += 4;
-		}
-		
-		
-		
-	
-
+		PuckXdir += 4;
 	}
 
-
+}
