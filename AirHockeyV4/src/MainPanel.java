@@ -135,11 +135,11 @@ public class MainPanel extends JPanel implements ActionListener {
 
 		// g.setColor(Color.red);
 		// g.drawLine(GamePuck.PuckMidx, GamePuck.PuckMidy, 0, 0);
-		// g.drawLine(GamePuck.Parray[7].x, GamePuck.Parray[7].y, 0, 0);
+		//// g.drawLine(GamePuck.Parray[7].x, GamePuck.Parray[7].y, 0, 0);
 		// g.drawLine(GamePuck.Parray[6].x, GamePuck.Parray[6].y, 0, 0);
 		// g.drawLine(GamePuck.Parray[5].x, GamePuck.Parray[5].y, 0, 0);
 		// g.drawLine(GamePuck.Parray[4].x, GamePuck.Parray[4].y, 500, 800);
-		// g.drawLine(GamePuck.Parray[3].x, GamePuck.Parray[3].y, 0, 0);
+		//  g.drawLine(GamePuck.Parray[3].x, GamePuck.Parray[3].y, 0, 0);
 		// g.drawLine(GamePuck.Parray[2].x, GamePuck.Parray[2].y, 0, 0);
 		// g.drawLine(GamePuck.Parray[1].x, GamePuck.Parray[1].y, 0, 0);
 		// g.drawLine(GamePuck.Parray[0].x, GamePuck.Parray[0].y, 0, 0);

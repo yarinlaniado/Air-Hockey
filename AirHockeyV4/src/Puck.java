@@ -202,8 +202,10 @@ public class Puck extends Thread {
 			PuckXdir -= 2;
 		}
 		if (speed < p.PlayerSpeed)
+		{
 			PuckYdir += 4;
-		PuckXdir += 4;
+			PuckXdir += 4;
+		}
 	}
 
 }

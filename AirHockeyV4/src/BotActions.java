@@ -26,10 +26,10 @@ public class BotActions extends Thread {
 		int level = levels[choose];
 		while (true) {
 			Point hit = bestattack(Bot, GamePuck.Parray);
-			if (GamePuck.PuckYpos < 290 && Bot.flagcheck) {
+			if (GamePuck.PuckYpos < 290) {
 				if (GamePuck.PrevPuckYpos > Bot.PlayerYpos) // ATTACK
 				{
-					if (Bot.PlayerXpos > 0 && Bot.PlayerXpos < 310 && Bot.PlayerYpos < 290) {
+					if (Bot.PlayerXpos > 1 && Bot.PlayerXpos <= 311 && Bot.PlayerYpos < 290) {
 						if (Bot.PlayerXpos < hit.x && Bot.PlayerXpos + level < 310)
 							Bot.PlayerXpos++;
 						else if (Bot.PlayerXpos - level > 1)
@@ -40,10 +40,10 @@ public class BotActions extends Thread {
 					}
 				} else // Defense
 				{
-					if (Bot.PlayerXpos > 0 && Bot.PlayerXpos < 310 && Bot.PlayerYpos < 290) {
+					if (Bot.PlayerXpos > 1 && Bot.PlayerXpos <= 311 && Bot.PlayerYpos < 290) {
 						if (Bot.PlayerXpos > hit.x && Bot.PlayerXpos - level < 310)
 							Bot.PlayerXpos--;
-						else if (Bot.PlayerXpos - level > 0)
+						else if (Bot.PlayerXpos - level > 1)
 							Bot.PlayerXpos++;
 
 						if (Bot.PlayerYpos > hit.y)
@@ -55,12 +55,19 @@ public class BotActions extends Thread {
 			}
 
 			else {
-				if (Bot.PlayerYpos > 1) {
+				if (Bot.PlayerYpos > 1 || !Bot.flagcheck) {
 					Bot.PlayerYpos--;
+				}
+				if (Bot.PlayerXpos > 310 || !Bot.flagcheck) {
+					Bot.PlayerXpos--;
 				}
 
 			}
 			m.repaint();
+			try {
+				sleep(level);
+			} catch (InterruptedException e) {
+			}
 
 		}
 	}
