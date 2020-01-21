@@ -73,6 +73,7 @@ public class Puck extends Thread {
 
 			PuckXpos += PuckXdir;
 			PuckYpos += PuckYdir;
+			
 			PuckMidx = PuckXpos + (width / 2);
 			PuckMidy = PuckYpos + (height / 2);
 			ParrayCheck();
@@ -142,6 +143,14 @@ public class Puck extends Thread {
 	public void Collision(Player p) {
 		Double Distance, MinDistance;
 		int c = 0;
+		if (speed > p.PlayerSpeed) {
+			PuckYdir -= 2;
+			PuckXdir -= 2;
+		}
+		if (speed < p.PlayerSpeed) {
+			PuckYdir += 2;
+			PuckXdir += 2;
+		}
 		// TODO Auto-generated method stub
 		MinDistance = Math.hypot(p.midPlayerXpos - Parray[0].x, p.midPlayerYpos - Parray[0].y);
 		for (int i = 1; i < 8; i++) {
@@ -154,58 +163,74 @@ public class Puck extends Thread {
 		switch (c) {
 		case 0:
 			if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10)
+			{
 				PuckYdir *= -1;
+				PuckYpos += PuckYdir;
+			}
 			break;
 		case 1:
 			if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
 				PuckYdir *= -1;
 				PuckXdir *= -1;
+				PuckXpos += PuckXdir;
+				PuckYpos += PuckYdir;
+
 			}
 
 			break;
 		case 2:
 			if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10)
+			{
 				PuckXdir *= -1;
+				PuckXpos += PuckXdir;
+			}
 			break;
 		case 3:
 			if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
 				PuckYdir *= -1;
 				PuckXdir *= -1;
+				PuckXpos += PuckXdir;
+				PuckYpos += PuckYdir;
 			}
 			break;
 		case 4:
 			if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10)
+			{
 				PuckYdir *= -1;
+				PuckYpos += PuckYdir;
+			}
 			break;
 		case 5:
 			if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
 				PuckYdir *= -1;
 				PuckXdir *= -1;
+				PuckXpos += PuckXdir;
+				PuckYpos += PuckYdir;
 			}
 			break;
 		case 6:
 			if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10)
+			{
 				PuckXdir *= -1;
+				PuckXpos += PuckXdir;
+				PuckXpos += PuckXdir;
+				PuckYpos += PuckYdir;
+
+			}
 			break;
 		case 7:
 			if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
 				PuckYdir *= -1;
 				PuckXdir *= -1;
+				PuckXpos += PuckXdir;
+				PuckYpos += PuckYdir;
 			}
 			break;
-		default:
+		default: System.out.println("wtf");
 			break;
 		}
 
-		if (speed > p.PlayerSpeed) {
-			PuckYdir -= 2;
-			PuckXdir -= 2;
-		}
-		if (speed < p.PlayerSpeed)
-		{
-			PuckYdir += 4;
-			PuckXdir += 4;
-		}
+		
 	}
 
 }

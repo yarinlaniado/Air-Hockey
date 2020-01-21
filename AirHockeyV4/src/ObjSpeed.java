@@ -47,16 +47,12 @@ public class ObjSpeed extends Thread {
 
 		if (GamePuck.PuckXpos > 80 && GamePuck.PuckXpos < 250)
 			if (one.Pnum == 2) {
-				if (GamePuck.PuckYpos <= 10) {
-					one.Score++;
-					GamePuck.ResetPuck();
-				}
-			} else {
-				if (GamePuck.PuckYpos >= 590) {
+				if (GamePuck.PuckYpos <= 10 || GamePuck.PuckYpos >= 590) {
 					one.Score++;
 					GamePuck.ResetPuck();
 				}
 			}
+
 	}
 
 }

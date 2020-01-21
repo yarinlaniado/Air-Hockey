@@ -11,6 +11,7 @@ public class BotActions extends Thread {
 	int choose;
 	int[] levels = { 3, 10, 20 };
 	private int count;
+	private boolean isPaused=false;
 
 	public BotActions(Player player2, Puck gamePuck, MainPanel mainPanel) {
 		Bot = player2;
@@ -25,6 +26,16 @@ public class BotActions extends Thread {
 	public void run() { // checks array of points and hits the closest one
 		int level = levels[choose];
 		while (true) {
+			if (isPaused) {
+				synchronized (this) {
+					try {
+						wait();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			else {
 			Point hit = bestattack(Bot, GamePuck.Parray);
 			if (GamePuck.PuckYpos < 290) {
 				if (GamePuck.PrevPuckYpos > Bot.PlayerYpos) // ATTACK
@@ -36,21 +47,43 @@ public class BotActions extends Thread {
 							Bot.PlayerXpos--;
 						if (Bot.PlayerYpos < hit.y)
 							Bot.PlayerYpos++;
+						
+						if(Bot.DistanceBetweenPuckAndPlayer()<48)
+						{
+							if (Bot.PlayerYpos > 1 || !Bot.flagcheck) {
+								Bot.PlayerYpos--;
+							}
+							if (Bot.PlayerXpos > 310 || !Bot.flagcheck) {
+								Bot.PlayerXpos--;
+							}
+						}
 
 					}
 				} else // Defense
 				{
 					if (Bot.PlayerXpos > 1 && Bot.PlayerXpos <= 311 && Bot.PlayerYpos < 290) {
-						if (Bot.PlayerXpos > hit.x && Bot.PlayerXpos - level < 310)
+						if (Bot.PlayerXpos >= hit.x && Bot.PlayerXpos - level < 310)
 							Bot.PlayerXpos--;
-						else if (Bot.PlayerXpos - level > 1)
+						else if (Bot.PlayerXpos - level >= 1)
 							Bot.PlayerXpos++;
 
-						if (Bot.PlayerYpos > hit.y)
+						if (Bot.PlayerYpos >= hit.y)
 							Bot.PlayerYpos--;
+						
+						if(Bot.DistanceBetweenPuckAndPlayer()<48)
+						{
+							if (Bot.PlayerYpos > 1 || !Bot.flagcheck) {
+								Bot.PlayerYpos--;
+							}
+							if (Bot.PlayerXpos > 310 || !Bot.flagcheck) {
+								Bot.PlayerXpos--;
+							}
+						}
 
 					}
 				}
+				
+
 
 			}
 
@@ -69,6 +102,7 @@ public class BotActions extends Thread {
 			} catch (InterruptedException e) {
 			}
 
+		}
 		}
 	}
 

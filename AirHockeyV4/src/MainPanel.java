@@ -43,7 +43,7 @@ public class MainPanel extends JPanel implements ActionListener {
 	boolean firstflagcheck = true;
 	boolean secondflagcheck = true;
 	private int type = 0;
-	private BotActions a,b;
+	private BotActions bot;
 
 	public MainPanel() {
 		menu();
@@ -58,9 +58,9 @@ public class MainPanel extends JPanel implements ActionListener {
 		
 		if(type==humanVSai) {
 		
-			 b = new BotActions(Player2,GamePuck,this);
-				synchronized(b) {
-					b.start();	
+			bot = new BotActions(Player2,GamePuck,this);
+				synchronized(bot) {
+					bot.start();	
 					}
 			//a = new BotActions(Player1,GamePuck,this);
 			// a.start();
@@ -292,8 +292,7 @@ public class MainPanel extends JPanel implements ActionListener {
 			}
 			if (key == KeyEvent.VK_L) {
 
-			Player1.print();
-			Player2.print();
+			System.out.println(bot.Bot.DistanceBetweenPuckAndPlayer());
 
 
 			}
@@ -303,12 +302,14 @@ public class MainPanel extends JPanel implements ActionListener {
 				Player2.isPaused = true;
 				Player1.isPaused = true;
 				GamePuck.isPaused = true;
+				bot.Bot.isPaused=true;
 
 			}
 			if (key == KeyEvent.VK_R) {
 				Player2.isPaused = false;
 				Player1.isPaused = false;
 				GamePuck.isPaused = false;
+				bot.Bot.isPaused=false;
 
 				synchronized (Player1) {
 					Player1.notify();
