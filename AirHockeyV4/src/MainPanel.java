@@ -289,7 +289,7 @@ public class MainPanel extends JPanel implements ActionListener {
 			}
 			if (key == KeyEvent.VK_L) {
 
-				System.out.println(bot.Bot.DistanceBetweenPuckAndPlayer());
+				bot.Bot.print();
 
 			}
 

@@ -57,21 +57,34 @@ public class BotActions extends Thread {
 						}
 					} else // Defense
 					{
+						System.out.println("DEFENSE");
 						if (Bot.PlayerXpos >= 1 && Bot.PlayerXpos <= 311 && Bot.PlayerYpos < 290) {
 							if (Bot.DistanceBetweenPuckAndPlayer() < 45) {
 								if (Bot.PlayerYpos >= 1 || !Bot.flagcheck) {
 									Bot.PlayerYpos--;
+									System.out.println("1");
 								}
 							} else {
-								if (Bot.PlayerXpos >= hit.x && Bot.PlayerXpos - 1 > 1)
+								if (Bot.PlayerXpos <= hit.x && Bot.PlayerXpos - 1 > 1)
+								{
 									Bot.PlayerXpos--;
-								else if (Bot.PlayerXpos + 1 > 311)
+									System.out.println("2");
+								}
+								else if (Bot.PlayerXpos + 1 > 311 ||Bot.PlayerXpos<0 ) {
 									Bot.PlayerXpos++;
+									System.out.println("3");
 
-								if (Bot.PlayerYpos >= hit.y && Bot.PlayerYpos - 1 > 1)
+								}
+
+								if (Bot.PlayerYpos >= hit.y && Bot.PlayerYpos - 1 > 1) {
 									Bot.PlayerYpos--;
-								else if (Bot.PlayerYpos <= hit.y && Bot.PlayerYpos + 1 < 290)
+									System.out.println("4");
+								}
+								else if (Bot.PlayerYpos <= hit.y && Bot.PlayerYpos + 1 < 290) {
 									Bot.PlayerYpos++;
+									System.out.println("5");
+
+								}
 
 							}
 						}
