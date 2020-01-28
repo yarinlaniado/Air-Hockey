@@ -73,7 +73,7 @@ public class Puck extends Thread {
 
 			PuckXpos += PuckXdir;
 			PuckYpos += PuckYdir;
-			
+
 			PuckMidx = PuckXpos + (width / 2);
 			PuckMidy = PuckYpos + (height / 2);
 			ParrayCheck();
@@ -162,8 +162,7 @@ public class Puck extends Thread {
 		}
 		switch (c) {
 		case 0:
-			if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10)
-			{
+			if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10) {
 				PuckYdir *= -1;
 				PuckYpos += PuckYdir;
 			}
@@ -179,8 +178,7 @@ public class Puck extends Thread {
 
 			break;
 		case 2:
-			if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10)
-			{
+			if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
 				PuckXdir *= -1;
 				PuckXpos += PuckXdir;
 			}
@@ -194,8 +192,7 @@ public class Puck extends Thread {
 			}
 			break;
 		case 4:
-			if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10)
-			{
+			if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10) {
 				PuckYdir *= -1;
 				PuckYpos += PuckYdir;
 			}
@@ -209,8 +206,7 @@ public class Puck extends Thread {
 			}
 			break;
 		case 6:
-			if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10)
-			{
+			if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
 				PuckXdir *= -1;
 				PuckXpos += PuckXdir;
 				PuckXpos += PuckXdir;
@@ -226,11 +222,11 @@ public class Puck extends Thread {
 				PuckYpos += PuckYdir;
 			}
 			break;
-		default: System.out.println("wtf");
+		default:
+			System.out.println("wtf");
 			break;
 		}
 
-		
 	}
 
 }

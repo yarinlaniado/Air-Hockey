@@ -11,7 +11,7 @@ public class BotActions extends Thread {
 	int choose;
 	int[] levels = { 3, 10, 20 };
 	private int count;
-	private boolean isPaused=false;
+	private boolean isPaused = false;
 
 	public BotActions(Player player2, Puck gamePuck, MainPanel mainPanel) {
 		Bot = player2;
@@ -34,80 +34,72 @@ public class BotActions extends Thread {
 						e.printStackTrace();
 					}
 				}
-			}
-			else {
-			Point hit = bestattack(Bot, GamePuck.Parray);
-			if (GamePuck.PuckYpos < 290) {
-				if (GamePuck.PrevPuckYpos > Bot.PlayerYpos) // ATTACK
-				{
-					if (Bot.PlayerXpos > 1 && Bot.PlayerXpos <= 311 && Bot.PlayerYpos < 290) {
-						if (Bot.PlayerXpos < hit.x && Bot.PlayerXpos + level < 310)
-							Bot.PlayerXpos++;
-						else if (Bot.PlayerXpos - level > 1)
-							Bot.PlayerXpos--;
-						if (Bot.PlayerYpos < hit.y)
-							Bot.PlayerYpos++;
-						
-						if(Bot.DistanceBetweenPuckAndPlayer()<48)
-						{
-							if (Bot.PlayerYpos > 1 || !Bot.flagcheck) {
-								Bot.PlayerYpos--;
-							}
-							if (Bot.PlayerXpos > 310 || !Bot.flagcheck) {
+			} else {
+				Point hit = bestattack(Bot, GamePuck.Parray);
+				if (GamePuck.PuckYpos < 290) {
+					if (GamePuck.PrevPuckYpos > Bot.PlayerYpos) // ATTACK
+					{
+						if (Bot.PlayerXpos > 1 && Bot.PlayerXpos <= 311 && Bot.PlayerYpos < 290) {
+							if (Bot.PlayerXpos < hit.x && Bot.PlayerXpos + 1 < 310)
+								Bot.PlayerXpos++;
+							else if (Bot.PlayerXpos - 1 > 1)
 								Bot.PlayerXpos--;
+							if (Bot.PlayerYpos < hit.y)
+								Bot.PlayerYpos++;
+
+							if (Bot.DistanceBetweenPuckAndPlayer() < 40) {
+								if (Bot.PlayerYpos > 1 || !Bot.flagcheck) {
+									Bot.PlayerYpos--;
+								}
+
+							}
+
+						}
+					} else // Defense
+					{
+						if (Bot.PlayerXpos >= 1 && Bot.PlayerXpos <= 311 && Bot.PlayerYpos < 290) {
+							if (Bot.DistanceBetweenPuckAndPlayer() < 45) {
+								if (Bot.PlayerYpos >= 1 || !Bot.flagcheck) {
+									Bot.PlayerYpos--;
+								}
+							} else {
+								if (Bot.PlayerXpos >= hit.x && Bot.PlayerXpos - 1 > 1)
+									Bot.PlayerXpos--;
+								else if (Bot.PlayerXpos + 1 > 311)
+									Bot.PlayerXpos++;
+
+								if (Bot.PlayerYpos >= hit.y && Bot.PlayerYpos - 1 > 1)
+									Bot.PlayerYpos--;
+								else if (Bot.PlayerYpos <= hit.y && Bot.PlayerYpos + 1 < 290)
+									Bot.PlayerYpos++;
+
 							}
 						}
-
 					}
-				} else // Defense
-				{
-					if (Bot.PlayerXpos > 1 && Bot.PlayerXpos <= 311 && Bot.PlayerYpos < 290) {
-						if (Bot.PlayerXpos >= hit.x && Bot.PlayerXpos - level < 310)
-							Bot.PlayerXpos--;
-						else if (Bot.PlayerXpos - level >= 1)
-							Bot.PlayerXpos++;
 
-						if (Bot.PlayerYpos >= hit.y)
-							Bot.PlayerYpos--;
-						
-						if(Bot.DistanceBetweenPuckAndPlayer()<48)
-						{
-							if (Bot.PlayerYpos > 1 || !Bot.flagcheck) {
-								Bot.PlayerYpos--;
-							}
-							if (Bot.PlayerXpos > 310 || !Bot.flagcheck) {
-								Bot.PlayerXpos--;
-							}
-						}
+				}
 
+				else {
+					if (Bot.PlayerYpos > 1 || !Bot.flagcheck) {
+						Bot.PlayerYpos--;
 					}
+					if (Bot.PlayerXpos > 310 || !Bot.flagcheck) {
+						Bot.PlayerXpos--;
+					}
+
 				}
-				
-
-
-			}
-
-			else {
-				if (Bot.PlayerYpos > 1 || !Bot.flagcheck) {
-					Bot.PlayerYpos--;
-				}
-				if (Bot.PlayerXpos > 310 || !Bot.flagcheck) {
-					Bot.PlayerXpos--;
+				m.repaint();
+				try {
+					sleep(level);
+				} catch (InterruptedException e) {
 				}
 
 			}
-			m.repaint();
-			try {
-				sleep(level);
-			} catch (InterruptedException e) {
-			}
-
-		}
 		}
 	}
 
 	private Point bestattack(Player p, Point[] Parray) {
-
+		GamePuck.ParrayCheck();
 		Double Distance, MinDistance;
 		int c = 0;
 		// TODO Auto-generated method stub

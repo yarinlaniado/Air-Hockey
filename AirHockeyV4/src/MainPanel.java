@@ -47,7 +47,7 @@ public class MainPanel extends JPanel implements ActionListener {
 
 	public MainPanel() {
 		menu();
-		
+
 		ImageIcon ii = new ImageIcon("Board.png");
 		backGroundImage = ii.getImage();
 		ImageIcon iii = new ImageIcon("BluePlayer.png");
@@ -55,30 +55,30 @@ public class MainPanel extends JPanel implements ActionListener {
 		GamePuck = new Puck(this);
 		Player1 = new Player(this, 1, GamePuck);
 		Player2 = new Player(this, 2, GamePuck);
-		
-		if(type==humanVSai) {
-		
-			bot = new BotActions(Player2,GamePuck,this);
-				synchronized(bot) {
-					bot.start();	
-					}
-			//a = new BotActions(Player1,GamePuck,this);
+
+		if (type == humanVSai) {
+
+			bot = new BotActions(Player2, GamePuck, this);
+			synchronized (bot) {
+				bot.start();
+			}
+			// a = new BotActions(Player1,GamePuck,this);
 			// a.start();
 		}
-		
+
 		OS = new ObjSpeed(GamePuck, Player1, Player2);
-		synchronized(OS) {
-			OS.start();	
-			}
-	
+		synchronized (OS) {
+			OS.start();
+		}
+
 		addMouseMotionListener(MouseListen);
 		addKeyListener(new KL());
 		setFocusable(true);
-		t = new Timer(500, this);
+		t = new Timer(240, this);
 		t.start();
-		synchronized(t) {
-			t.start();	
-			}
+		synchronized (t) {
+			t.start();
+		}
 
 	}
 
@@ -139,7 +139,7 @@ public class MainPanel extends JPanel implements ActionListener {
 		// g.drawLine(GamePuck.Parray[6].x, GamePuck.Parray[6].y, 0, 0);
 		// g.drawLine(GamePuck.Parray[5].x, GamePuck.Parray[5].y, 0, 0);
 		// g.drawLine(GamePuck.Parray[4].x, GamePuck.Parray[4].y, 500, 800);
-		//  g.drawLine(GamePuck.Parray[3].x, GamePuck.Parray[3].y, 0, 0);
+		// g.drawLine(GamePuck.Parray[3].x, GamePuck.Parray[3].y, 0, 0);
 		// g.drawLine(GamePuck.Parray[2].x, GamePuck.Parray[2].y, 0, 0);
 		// g.drawLine(GamePuck.Parray[1].x, GamePuck.Parray[1].y, 0, 0);
 		// g.drawLine(GamePuck.Parray[0].x, GamePuck.Parray[0].y, 0, 0);
@@ -218,7 +218,6 @@ public class MainPanel extends JPanel implements ActionListener {
 					}
 				}
 
-
 				if (key == KeyEvent.VK_M && GamePuck.speed > 0) {
 
 					GamePuck.speed--;
@@ -230,11 +229,9 @@ public class MainPanel extends JPanel implements ActionListener {
 
 				GamePuck.ParrayCheck();
 
-			}
-			else
-			{
+			} else {
 				if (Player1.isPaused == false) {
-					//if (e.getX() > 0 && e.getX() <= 310 && e.getY() >= 332 && e.getY() <= 590) {
+					// if (e.getX() > 0 && e.getX() <= 310 && e.getY() >= 332 && e.getY() <= 590) {
 					// Sec player
 					if (key == KeyEvent.VK_LEFT && Player1.isPaused == false && !MousePause) {
 
@@ -292,8 +289,7 @@ public class MainPanel extends JPanel implements ActionListener {
 			}
 			if (key == KeyEvent.VK_L) {
 
-			System.out.println(bot.Bot.DistanceBetweenPuckAndPlayer());
-
+				System.out.println(bot.Bot.DistanceBetweenPuckAndPlayer());
 
 			}
 
@@ -302,14 +298,14 @@ public class MainPanel extends JPanel implements ActionListener {
 				Player2.isPaused = true;
 				Player1.isPaused = true;
 				GamePuck.isPaused = true;
-				bot.Bot.isPaused=true;
+				bot.Bot.isPaused = true;
 
 			}
 			if (key == KeyEvent.VK_R) {
 				Player2.isPaused = false;
 				Player1.isPaused = false;
 				GamePuck.isPaused = false;
-				bot.Bot.isPaused=false;
+				bot.Bot.isPaused = false;
 
 				synchronized (Player1) {
 					Player1.notify();

@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-
 public class Player extends Thread {
 	int PlayerXpos;
 	int PlayerYpos;
@@ -73,12 +72,12 @@ public class Player extends Thread {
 					if (DistanceBetweenPuckAndPlayer() <= radios + GamePuck.radios) {
 						flagcheck = false;
 						GamePuck.Collision(this);
-					/*	try {
+						try {
 							Thread.sleep(250);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						}*/
+						}
 					}
 
 				}
@@ -90,15 +89,14 @@ public class Player extends Thread {
 
 			Goal(Pnum); // win check
 			count++;
-			
-				try {
-					Thread.sleep(1);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			
-			
-				m.repaint();
+
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			m.repaint();
 
 		}
 	}
