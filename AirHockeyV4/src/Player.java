@@ -26,12 +26,10 @@ public class Player extends Thread {
 	Image PlayerImage;
 	MainPanel m;
 	Puck GamePuck;
-	private int count;
 
 	public Player(MainPanel MP, int num, Puck GP) {
 		PlayerXpos = 160;
 		PlayerYpos = 500;
-		count = 0;
 		// midPlayerXpos = (PlayerXpos + width) / 2;
 		// midPlayerYpos = (PlayerYpos + height) / 2;
 		m = MP;
@@ -72,8 +70,9 @@ public class Player extends Thread {
 					if (DistanceBetweenPuckAndPlayer() <= radios + GamePuck.radios) {
 						flagcheck = false;
 						GamePuck.Collision(this);
+						m.repaint();
 						try {
-							Thread.sleep(250);
+							Thread.sleep(1);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -88,15 +87,13 @@ public class Player extends Thread {
 			}
 
 			Goal(Pnum); // win check
-			count++;
-
+			m.repaint();
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 
-			m.repaint();
 
 		}
 	}

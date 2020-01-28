@@ -57,12 +57,14 @@ public class Puck extends Thread {
 						e.printStackTrace();
 					}
 				}
-			} else if (PuckYpos < 0 || PuckYpos > 610) {// top and bottom
+			} else if (PuckYpos <= 0 || PuckYpos >= 610) {// top and bottom
 				PuckYdir = PuckYdir * -1;
+				PuckYpos += PuckYdir;
 
 			}
-			if (PuckXpos < 0 || PuckXpos > 345) {// left and right
+			if (PuckXpos <= 0 || PuckXpos >= 345) {// left and right
 				PuckXdir = PuckXdir * -1;
+				PuckXpos += PuckXdir;
 
 			}
 
@@ -77,7 +79,7 @@ public class Puck extends Thread {
 			PuckMidx = PuckXpos + (width / 2);
 			PuckMidy = PuckYpos + (height / 2);
 			ParrayCheck();
-
+			m.repaint();
 			try {
 				Thread.sleep(speed);
 			} catch (InterruptedException e) {
@@ -144,12 +146,12 @@ public class Puck extends Thread {
 		Double Distance, MinDistance;
 		int c = 0;
 		if (speed > p.PlayerSpeed) {
-			PuckYdir -= 2;
-			PuckXdir -= 2;
+			PuckYdir --;
+			PuckXdir --;
 		}
 		if (speed < p.PlayerSpeed) {
-			PuckYdir += 2;
-			PuckXdir += 2;
+			PuckYdir ++;
+			PuckXdir ++;
 		}
 		// TODO Auto-generated method stub
 		MinDistance = Math.hypot(p.midPlayerXpos - Parray[0].x, p.midPlayerYpos - Parray[0].y);
@@ -226,6 +228,7 @@ public class Puck extends Thread {
 			System.out.println("wtf");
 			break;
 		}
+		m.repaint();
 
 	}
 

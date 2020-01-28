@@ -10,7 +10,6 @@ public class BotActions extends Thread {
 	int Score;
 	int choose;
 	int[] levels = { 3, 10, 20 };
-	private int count;
 	private boolean isPaused = false;
 
 	public BotActions(Player player2, Puck gamePuck, MainPanel mainPanel) {
@@ -25,6 +24,7 @@ public class BotActions extends Thread {
 
 	public void run() { // checks array of points and hits the closest one
 		int level = levels[choose];
+		int test = 1;
 		while (true) {
 			if (isPaused) {
 				synchronized (this) {
@@ -35,60 +35,37 @@ public class BotActions extends Thread {
 					}
 				}
 			} else {
-				Point hit = bestattack(Bot, GamePuck.Parray);
+				Point hit = new Point(GamePuck.PuckMidx, GamePuck.PuckMidy);
 				if (GamePuck.PuckYpos < 290) {
-					if (GamePuck.PrevPuckYpos > Bot.PlayerYpos) // ATTACK
-					{
-						if (Bot.PlayerXpos > 1 && Bot.PlayerXpos <= 311 && Bot.PlayerYpos < 290) {
-							if (Bot.PlayerXpos < hit.x && Bot.PlayerXpos + 1 < 310)
-								Bot.PlayerXpos++;
-							else if (Bot.PlayerXpos - 1 > 1)
-								Bot.PlayerXpos--;
-							if (Bot.PlayerYpos < hit.y)
-								Bot.PlayerYpos++;
-
-							if (Bot.DistanceBetweenPuckAndPlayer() < 40) {
-								if (Bot.PlayerYpos > 1 || !Bot.flagcheck) {
-									Bot.PlayerYpos--;
-								}
-
+					if (GamePuck.PuckYpos < hit.y) {
+					
+						if (Bot.DistanceBetweenPuckAndPlayer() < 40) {
+							if (Bot.PlayerYpos >= 1 || !Bot.flagcheck) {
+								Bot.PlayerYpos-=test;
+							}
+						} else if (Bot.PlayerXpos >= 1 && Bot.PlayerXpos <= 311 && Bot.PlayerYpos < 290) {
+							if (Bot.PlayerXpos < hit.x && Bot.PlayerXpos + 1 < 310) {
+								Bot.PlayerXpos+=test;
+							} else if (Bot.PlayerXpos - 1 >= 1) {
+								Bot.PlayerXpos-=test;
+							}
+							if (Bot.PlayerYpos <= hit.y && Bot.PlayerYpos + 1 <= 290) {
+								Bot.PlayerYpos+=test;
+							} else if (Bot.PlayerYpos - 1 >= 1) {
+								Bot.PlayerYpos-=test;
 							}
 
 						}
-					} else // Defense
-					{
-						System.out.println("DEFENSE");
-						if (Bot.PlayerXpos >= 1 && Bot.PlayerXpos <= 311 && Bot.PlayerYpos < 290) {
-							if (Bot.DistanceBetweenPuckAndPlayer() < 45) {
-								if (Bot.PlayerYpos >= 1 || !Bot.flagcheck) {
-									Bot.PlayerYpos--;
-									System.out.println("1");
-								}
-							} else {
-								if (Bot.PlayerXpos <= hit.x && Bot.PlayerXpos - 1 > 1)
-								{
-									Bot.PlayerXpos--;
-									System.out.println("2");
-								}
-								else if (Bot.PlayerXpos + 1 > 311 ||Bot.PlayerXpos<0 ) {
-									Bot.PlayerXpos++;
-									System.out.println("3");
-
-								}
-
-								if (Bot.PlayerYpos >= hit.y && Bot.PlayerYpos - 1 > 1) {
-									Bot.PlayerYpos--;
-									System.out.println("4");
-								}
-								else if (Bot.PlayerYpos <= hit.y && Bot.PlayerYpos + 1 < 290) {
-									Bot.PlayerYpos++;
-									System.out.println("5");
-
-								}
-
+						
+						if(Bot.DistanceBetweenPuckAndPlayer()<45)
+							try {
+								retreat();
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
 							}
-						}
-					}
+					} 
+
 
 				}
 
@@ -108,6 +85,17 @@ public class BotActions extends Thread {
 				}
 
 			}
+		}
+	}
+
+	private void retreat() throws InterruptedException {
+		int count = 50;
+		while(count>0)
+		{
+			if(Bot.PlayerYpos>1)
+				Bot.PlayerYpos--;
+			count--;
+			sleep(5);
 		}
 	}
 

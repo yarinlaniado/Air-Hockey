@@ -16,8 +16,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
-//TO DO: speed fix and collision test!
-public class MainPanel extends JPanel implements ActionListener {
+public class MainPanel extends JPanel  {
 
 	private static final long serialVersionUID = 1L;
 	static int width = 400;
@@ -74,11 +73,6 @@ public class MainPanel extends JPanel implements ActionListener {
 		addMouseMotionListener(MouseListen);
 		addKeyListener(new KL());
 		setFocusable(true);
-		t = new Timer(240, this);
-		t.start();
-		synchronized (t) {
-			t.start();
-		}
 
 	}
 
@@ -218,14 +212,7 @@ public class MainPanel extends JPanel implements ActionListener {
 					}
 				}
 
-				if (key == KeyEvent.VK_M && GamePuck.speed > 0) {
 
-					GamePuck.speed--;
-				}
-				if (key == KeyEvent.VK_L) {
-
-					GamePuck.speed++;
-				}
 
 				GamePuck.ParrayCheck();
 
@@ -289,7 +276,7 @@ public class MainPanel extends JPanel implements ActionListener {
 			}
 			if (key == KeyEvent.VK_L) {
 
-				bot.Bot.print();
+				GamePuck.print();
 
 			}
 
@@ -315,6 +302,9 @@ public class MainPanel extends JPanel implements ActionListener {
 				}
 				synchronized (GamePuck) {
 					GamePuck.notify();
+				}
+				synchronized (bot) {
+					bot.notify();
 				}
 
 			}
@@ -360,31 +350,6 @@ public class MainPanel extends JPanel implements ActionListener {
 
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		GamePuck.ParrayCheck();
-		if (firstflagcheck) {
-			firstflagcheck = false;
-			if (Player1.DistanceBetweenPuckAndPlayer() <= Player1.radios + GamePuck.radios) {
-				GamePuck.Collision(Player1);
-
-			}
-		} else if (Player1.DistanceBetweenPuckAndPlayer() > Player1.radios + GamePuck.radios) {
-			firstflagcheck = true;
-		}
-
-		if (secondflagcheck) {
-			secondflagcheck = false;
-			if (Player2.DistanceBetweenPuckAndPlayer() <= Player2.radios + GamePuck.radios) {
-				GamePuck.Collision(Player2);
-
-			}
-		} else if (Player2.DistanceBetweenPuckAndPlayer() > Player2.radios + GamePuck.radios) {
-			secondflagcheck = true;
-		}
-		repaint();
-
-	}
 
 	public void menu() {
 
