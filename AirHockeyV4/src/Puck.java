@@ -22,6 +22,8 @@ public class Puck extends Thread {
 	Image PuckImage;
 	MainPanel m;
 	boolean isPaused = false;
+	 boolean touch = false;
+
 
 	double PuckSpeed = 0;
 	double radios = 17;
@@ -143,93 +145,80 @@ public class Puck extends Thread {
 	}
 
 	public void Collision(Player p) {
-		Double Distance, MinDistance;
-		int c = 0;
-		if (speed > p.PlayerSpeed) {
-			PuckYdir --;
-			PuckXdir --;
-		}
-		if (speed < p.PlayerSpeed) {
-			PuckYdir ++;
-			PuckXdir ++;
-		}
-		// TODO Auto-generated method stub
-		MinDistance = Math.hypot(p.midPlayerXpos - Parray[0].x, p.midPlayerYpos - Parray[0].y);
-		for (int i = 1; i < 8; i++) {
-			Distance = Math.hypot(p.midPlayerXpos - Parray[i].x, p.midPlayerYpos - Parray[i].y); // player+
-			if (MinDistance > Distance) {
-				c = i;
-				MinDistance = Distance;
+		if(touch==false) {
+			Double Distance, MinDistance;
+			int c = 0;
+			if (speed > p.PlayerSpeed) {
+				PuckYdir--;
+				PuckXdir--;
 			}
-		}
-		switch (c) {
-		case 0:
-			if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10) {
-				PuckYdir *= -1;
-				PuckYpos += PuckYdir;
+			if (speed < p.PlayerSpeed) {
+				PuckYdir++;
+				PuckXdir++;
 			}
-			break;
-		case 1:
-			if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
-				PuckYdir *= -1;
-				PuckXdir *= -1;
-				PuckXpos += PuckXdir;
-				PuckYpos += PuckYdir;
+			// TODO Auto-generated method stub
+			MinDistance = Math.hypot(p.midPlayerXpos - Parray[0].x, p.midPlayerYpos - Parray[0].y);
+			for (int i = 1; i < 8; i++) {
+				Distance = Math.hypot(p.midPlayerXpos - Parray[i].x, p.midPlayerYpos - Parray[i].y); // player+
+				if (MinDistance > Distance) {
+					c = i;
+					MinDistance = Distance;
+				}
+			}
+			//
+			switch (c) {
+			case 0:
+				if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10)
+					PuckYdir *= -1;
+				break;
+			case 1:
+				if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
+					PuckYdir *= -1;
+					PuckXdir *= -1;
+				}
 
+				break;
+			case 2:
+				if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10)
+					PuckXdir *= -1;
+				break;
+			case 3:
+				if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
+					PuckYdir *= -1;
+					PuckXdir *= -1;
+				}
+				break;
+			case 4:
+				if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10)
+					PuckYdir *= -1;
+				break;
+			case 5:
+				if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
+					PuckYdir *= -1;
+					PuckXdir *= -1;
+				}
+				break;
+			case 6:
+				if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10)
+					PuckXdir *= -1;
+				break;
+			case 7:
+				if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
+					PuckYdir *= -1;
+					PuckXdir *= -1;
+				}
+				break;
+			default:
+				break;
 			}
-
-			break;
-		case 2:
-			if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
-				PuckXdir *= -1;
-				PuckXpos += PuckXdir;
-			}
-			break;
-		case 3:
-			if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
-				PuckYdir *= -1;
-				PuckXdir *= -1;
-				PuckXpos += PuckXdir;
-				PuckYpos += PuckYdir;
-			}
-			break;
-		case 4:
-			if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10) {
-				PuckYdir *= -1;
-				PuckYpos += PuckYdir;
-			}
-			break;
-		case 5:
-			if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
-				PuckYdir *= -1;
-				PuckXdir *= -1;
-				PuckXpos += PuckXdir;
-				PuckYpos += PuckYdir;
-			}
-			break;
-		case 6:
-			if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
-				PuckXdir *= -1;
-				PuckXpos += PuckXdir;
-				PuckXpos += PuckXdir;
-				PuckYpos += PuckYdir;
-
-			}
-			break;
-		case 7:
-			if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
-				PuckYdir *= -1;
-				PuckXdir *= -1;
-				PuckXpos += PuckXdir;
-				PuckYpos += PuckYdir;
-			}
-			break;
-		default:
-			System.out.println("wtf");
-			break;
+			PuckXpos += PuckXdir;
+			PuckYpos += PuckYdir;
+			m.repaint();
 		}
-		m.repaint();
+		
+		
+
+			
 
 	}
-
 }

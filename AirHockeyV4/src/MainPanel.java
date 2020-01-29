@@ -16,7 +16,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
-public class MainPanel extends JPanel  {
+public class MainPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	static int width = 400;
@@ -63,16 +63,28 @@ public class MainPanel extends JPanel  {
 			}
 			// a = new BotActions(Player1,GamePuck,this);
 			// a.start();
+			ActionListener taskPerformer = new ActionListener() {
+			    public void actionPerformed(ActionEvent evt) {
+			    	if(bot.Bot.DistanceBetweenPuckAndPlayer()>50)
+			    		GamePuck.touch=false;
+			    	else
+			    		GamePuck.touch=true;
+			    	repaint();
+			    }
+			    
+			};
+			Timer timer = new Timer(200, taskPerformer);
+			timer.setRepeats(true);
+			timer.start();
 		}
+		addMouseMotionListener(MouseListen);
+		addKeyListener(new KL());
+		setFocusable(true);
 
 		OS = new ObjSpeed(GamePuck, Player1, Player2);
 		synchronized (OS) {
 			OS.start();
 		}
-
-		addMouseMotionListener(MouseListen);
-		addKeyListener(new KL());
-		setFocusable(true);
 
 	}
 
@@ -276,7 +288,7 @@ public class MainPanel extends JPanel  {
 			}
 			if (key == KeyEvent.VK_L) {
 
-				GamePuck.print();
+				System.out.println(GamePuck.PuckYdir); // >0 - going down  <0 UP
 
 			}
 
@@ -347,6 +359,8 @@ public class MainPanel extends JPanel  {
 		f.setIconImage(bp.Icon);
 		f.setLocation(dim.width / 2 - f.getSize().width / 2, dim.height / 2 - f.getSize().height / 2);
 		bp.hideMouseCursor();
+		int delay = 5000; //milliseconds
+
 
 	}
 
