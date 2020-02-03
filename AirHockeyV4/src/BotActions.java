@@ -40,7 +40,7 @@ public class BotActions extends Thread {
 					if (GamePuck.PuckYpos < hit.y) {
 					
 						if (Bot.DistanceBetweenPuckAndPlayer() < 40) {
-							if (Bot.PlayerYpos >= 1 || !Bot.flagcheck) {
+							if (Bot.PlayerYpos >= 1) {
 								Bot.PlayerYpos-=test;
 							}
 						} else if (Bot.PlayerXpos >= 1 && Bot.PlayerXpos <= 311 && Bot.PlayerYpos < 290) {
@@ -70,17 +70,17 @@ public class BotActions extends Thread {
 				}
 
 				else {
-					if (Bot.PlayerYpos > 1 || !Bot.flagcheck) {
+					if (Bot.PlayerYpos > 1) {
 						Bot.PlayerYpos--;
 					}
-					if (Bot.PlayerXpos > 310 || !Bot.flagcheck) {
+					if (Bot.PlayerXpos > 310) {
 						Bot.PlayerXpos--;
 					}
 
 				}
 				m.repaint();
 				try {
-					sleep(level);
+					Thread.sleep(level);
 				} catch (InterruptedException e) {
 				}
 
@@ -95,25 +95,10 @@ public class BotActions extends Thread {
 			if(Bot.PlayerYpos>1)
 				Bot.PlayerYpos--;
 			count--;
-			sleep(5);
+			Thread.sleep(5);
 		}
 	}
 
-	private Point bestattack(Player p, Point[] Parray) {
-		GamePuck.ParrayCheck();
-		Double Distance, MinDistance;
-		int c = 0;
-		// TODO Auto-generated method stub
-		MinDistance = Math.hypot(p.midPlayerXpos - Parray[0].x, p.midPlayerYpos - Parray[0].y);
-		for (int i = 1; i < 8; i++) {
-			Distance = Math.hypot(p.midPlayerXpos - Parray[i].x, p.midPlayerYpos - Parray[i].y); // player+
-			if (MinDistance > Distance) {
-				c = i;
-				MinDistance = Distance;
-			}
-		}
-		return Parray[c];
-	}
 
 	public void menu() {
 

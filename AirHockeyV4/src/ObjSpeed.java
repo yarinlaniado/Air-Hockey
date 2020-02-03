@@ -33,10 +33,7 @@ public class ObjSpeed extends Thread {
 			Goal(Player1);
 			Goal(Player2);
 
-			if(Player1.DistanceBetweenPuckAndPlayer()<45)
-				GamePuck.Collision(Player1);
-			if(Player2.DistanceBetweenPuckAndPlayer()<45)
-				GamePuck.Collision(Player2);
+
 			
 			try {
 				sleep(speed);

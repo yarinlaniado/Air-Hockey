@@ -22,11 +22,10 @@ public class Puck extends Thread {
 	Image PuckImage;
 	MainPanel m;
 	boolean isPaused = false;
-	 boolean touch = false;
-
+	boolean touch = false;
 
 	double PuckSpeed = 0;
-	double radios = 17;
+	double radios = 17; // 17.5
 
 	public Puck(MainPanel MP) {
 
@@ -145,80 +144,84 @@ public class Puck extends Thread {
 	}
 
 	public void Collision(Player p) {
-		if(touch==false) {
-			Double Distance, MinDistance;
-			int c = 0;
-			if (speed > p.PlayerSpeed) {
-				PuckYdir--;
-				PuckXdir--;
-			}
-			if (speed < p.PlayerSpeed) {
-				PuckYdir++;
-				PuckXdir++;
-			}
-			// TODO Auto-generated method stub
-			MinDistance = Math.hypot(p.midPlayerXpos - Parray[0].x, p.midPlayerYpos - Parray[0].y);
-			for (int i = 1; i < 8; i++) {
-				Distance = Math.hypot(p.midPlayerXpos - Parray[i].x, p.midPlayerYpos - Parray[i].y); // player+
-				if (MinDistance > Distance) {
-					c = i;
-					MinDistance = Distance;
-				}
-			}
-			//
-			switch (c) {
-			case 0:
-				if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10)
-					PuckYdir *= -1;
-				break;
-			case 1:
-				if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
-					PuckYdir *= -1;
-					PuckXdir *= -1;
-				}
+		boolean okflag=true;
+		while(okflag) {
 
-				break;
-			case 2:
-				if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10)
-					PuckXdir *= -1;
-				break;
-			case 3:
-				if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
-					PuckYdir *= -1;
-					PuckXdir *= -1;
-				}
-				break;
-			case 4:
-				if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10)
-					PuckYdir *= -1;
-				break;
-			case 5:
-				if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
-					PuckYdir *= -1;
-					PuckXdir *= -1;
-				}
-				break;
-			case 6:
-				if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10)
-					PuckXdir *= -1;
-				break;
-			case 7:
-				if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
-					PuckYdir *= -1;
-					PuckXdir *= -1;
-				}
-				break;
-			default:
-				break;
-			}
-			PuckXpos += PuckXdir;
-			PuckYpos += PuckYdir;
-			m.repaint();
+		Double Distance, MinDistance;
+		int c = 0;
+		if (speed > p.PlayerSpeed) {
+			PuckYdir--;
+			PuckXdir--;
 		}
+		if (speed < p.PlayerSpeed) {
+			PuckYdir++;
+			PuckXdir++;
+		}
+		// TODO Auto-generated method stub
+		MinDistance = Math.hypot(p.midPlayerXpos - Parray[0].x, p.midPlayerYpos - Parray[0].y);
+		for (int i = 1; i < 8; i++) {
+			Distance = Math.hypot(p.midPlayerXpos - Parray[i].x, p.midPlayerYpos - Parray[i].y); // player+
+			if (MinDistance > Distance) {
+				c = i;
+				MinDistance = Distance;
+			}
+		}
+		//
+		switch (c) {
+		case 0:
+			if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10)
+				PuckYdir *= -1;
+			break;
+		case 1:
+			if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
+				PuckYdir *= -1;
+				PuckXdir *= -1;
+			}
+
+			break;
+		case 2:
+			if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10)
+				PuckXdir *= -1;
+			break;
+		case 3:
+			if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
+				PuckYdir *= -1;
+				PuckXdir *= -1;
+			}
+			break;
+		case 4:
+			if (PuckYdir * -1 < 10 || PuckYdir * -1 > -10)
+				PuckYdir *= -1;
+			break;
+		case 5:
+			if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
+				PuckYdir *= -1;
+				PuckXdir *= -1;
+			}
+			break;
+		case 6:
+			if (PuckXdir * -1 < 10 || PuckXdir * -1 > -10)
+				PuckXdir *= -1;
+			break;
+		case 7:
+			if ((PuckYdir * -1 < 10 || PuckYdir * -1 > -10) && PuckXdir * -1 < 10 || PuckXdir * -1 > -10) {
+				PuckYdir *= -1;
+				PuckXdir *= -1;
+			}
+			break;
+		default:
+			break;
+		}
+		PuckXpos += PuckXdir;
+		PuckYpos += PuckYdir;
+		m.repaint();
+		if(p.DistanceBetweenPuckAndPlayer()<radios+p.radios)
+			okflag=false;
 		
-		
+	}
+		m.repaint();
 
 			
-
+			
 	}
 }

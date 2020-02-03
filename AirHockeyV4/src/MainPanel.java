@@ -54,7 +54,6 @@ public class MainPanel extends JPanel {
 		GamePuck = new Puck(this);
 		Player1 = new Player(this, 1, GamePuck);
 		Player2 = new Player(this, 2, GamePuck);
-
 		if (type == humanVSai) {
 
 			bot = new BotActions(Player2, GamePuck, this);
@@ -85,6 +84,8 @@ public class MainPanel extends JPanel {
 		synchronized (OS) {
 			OS.start();
 		}
+		
+
 
 	}
 
@@ -286,9 +287,9 @@ public class MainPanel extends JPanel {
 					}
 				}
 			}
-			if (key == KeyEvent.VK_L) {
+			if (key == KeyEvent.VK_T) { //test
 
-				System.out.println(GamePuck.PuckYdir); // >0 - going down  <0 UP
+				System.out.println(bot.Bot.DistanceBetweenPuckAndPlayer()); // >0 - going down  <0 UP
 
 			}
 

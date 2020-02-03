@@ -22,7 +22,6 @@ public class Player extends Thread {
 	double PlayerSpeed;
 	double radios = 35;
 	boolean isPaused = false;
-	boolean flagcheck = true;
 	Image PlayerImage;
 	MainPanel m;
 	Puck GamePuck;
@@ -62,28 +61,23 @@ public class Player extends Thread {
 					}
 				}
 			} else {
-
 				midPlayerXpos = PlayerXpos + (width / 2);
 				midPlayerYpos = PlayerYpos + (height / 2);
 
-				if (flagcheck) {
-					if (DistanceBetweenPuckAndPlayer() <= radios + GamePuck.radios) {
-						flagcheck = false;
+					if(DistanceBetweenPuckAndPlayer()<radios+GamePuck.radios)
+					{
 						GamePuck.Collision(this);
 						m.repaint();
 						try {
-							Thread.sleep(20);
+							Thread.sleep(300);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						
 					}
-
-				}
-
-				if (DistanceBetweenPuckAndPlayer() > radios + GamePuck.radios) {
-					flagcheck = true;
-				}
+					
+						
+				
 			}
 
 			Goal(Pnum); // win check
@@ -93,7 +87,6 @@ public class Player extends Thread {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-
 
 		}
 	}
